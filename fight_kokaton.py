@@ -148,12 +148,11 @@ def main():
     screen = pg.display.set_mode((WIDTH, HEIGHT))    
     bg_img = pg.image.load("fig/pg_bg.jpg")
     bird = Bird((300, 200))
-    bombs = []
+    # bombs = []
     # bomb = Bomb((255, 0, 0), 10)
     bombs = [Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)]
       # 複数の爆弾を生成
     beam = None  # ゲーム初期化時にはビームは存在しない
-    
     clock = pg.time.Clock()
     tmr = 0
     while True:
@@ -167,7 +166,7 @@ def main():
         
         for bomb in bombs:
             if bird.rct.colliderect(bomb.rct):
-                # 爆弾とこうかとんが衝突した場合
+                 # ゲームオーバー時に，こうかとん画像を切り替え，1秒間表示させる
                 bird.change_img(8, screen)
                 fonto = pg.font.Font(None, 80)
                 txt = fonto.render("Game Over", True, (255, 0, 0))
@@ -176,7 +175,7 @@ def main():
                 time.sleep(1)
                 return
         
-        if bomb is not None:
+        for i, bomb in enumerate(bombs):
             if beam is not None:
                 if beam.rct.colliderect(bomb.rct):
                     beam = None
