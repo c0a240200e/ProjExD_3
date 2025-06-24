@@ -231,16 +231,16 @@ def main():
                 return
         
         for i, bomb in enumerate(bombs):
-            for beam in beams:
-                if beam.rct.colliderect(bomb.rct):
+            for beam1 in beams:
+                if beam1.rct.colliderect(bomb.rct):
                     explosions.append(explosion(ex_img, 20, bomb.rct.center))
-                    beam = None
+                    beam1 = None
                     bombs[i] = None
                     bird.change_img(6, screen)
                     sc.score += 1
         sc.update(screen)
         bombs = [bomb for bomb in bombs if bomb is not None]
-        beams = [beam for beam in beams if beam is not None]
+        beams = [beam1 for beam1 in beams if beam1 is not None]
         explosions = [ex for ex in explosions if ex.life > 0]
         # 爆発を描画
         for ex in explosions:
@@ -248,9 +248,9 @@ def main():
 
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
-        for beam in beams:
+        for beam2 in beams:
             # ビームが存在する場合は更新
-            beam.update(screen)
+            beam2.update(screen)
         for bomb in bombs:
             bomb.update(screen)
         pg.display.update()
